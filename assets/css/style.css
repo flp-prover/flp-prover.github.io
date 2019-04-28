@@ -566,19 +566,19 @@ hr {
   background: url("../images/bg_hr.png") repeat-x center; }
 
 table {
-  border: 1px solid #005d66;
+  border: 1px solid #086894;
   margin-bottom: 20px;
   text-align: left; }
 
 th {
   font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
-  background: #6ea5a5;
+  background: #086894;
   color: #fff; }
 
 td {
   padding: 10px;
-  border: 1px solid #6ea5a5; }
+  border: 1px solid #086894; }
 
 form {
   background: #f2f2f2;
@@ -612,11 +612,11 @@ Full-Width Styles
 
 #header_wrap {
   background: #0097e2;
-  background: -moz-linear-gradient(top, #6ea5a5, #0097e2);
-  background: -webkit-linear-gradient(top, #6ea5a5, #0097e2);
-  background: -ms-linear-gradient(top, #6ea5a5, #0097e2);
-  background: -o-linear-gradient(top, #6ea5a5, #0097e2);
-  background: linear-gradient(to top, #6ea5a5, #0097e2); }
+  background: -moz-linear-gradient(top, #086894, #0097e2);
+  background: -webkit-linear-gradient(top, #086894, #0097e2);
+  background: -ms-linear-gradient(top, #086894, #0097e2);
+  background: -o-linear-gradient(top, #086894, #0097e2);
+  background: linear-gradient(to top, #086894, #0097e2); }
 
 #header_wrap .inner {
   padding: 50px 10px 30px 10px; }
@@ -678,7 +678,7 @@ Full-Width Styles
   padding-top: 40px; }
 
 #footer_wrap {
-  background: #6ea5a5; }
+  background: #086894; }
 
 /*******************************************************************************
 Small Device Styles
