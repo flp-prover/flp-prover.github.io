@@ -136,4 +136,4 @@ entailment. The details of this experiment is shown in the below table.
   benchmarks](https://www.dropbox.com/prover-benchmarks.zip)
 
 - The details of our experiment are reported in this PDF file:
-  [experiment details](https://www.dropbox.com/SAS19-experiment.pdf)
+  [experiment details](https://www.dropbox.com/s/s55r88ub7gsgeqx/SAS-19-Experiment.pdf)
