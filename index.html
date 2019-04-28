@@ -1,1 +1,454 @@
-hello
+<!DOCTYPE html>
+<html lang="en-US">
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=2">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/style.css?v=">
+
+<!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>The FLP Prover | A Separation Logic Inductive Prover Which Can Learn from the Failures.</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="The FLP Prover" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Separation Logic Inductive Prover Which Can Learn from the Failures." />
+<meta property="og:description" content="A Separation Logic Inductive Prover Which Can Learn from the Failures." />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="The FLP Prover" />
+<script type="application/ld+json">
+{"@type":"WebSite","url":"http://localhost:4000/","headline":"The FLP Prover","name":"The FLP Prover","description":"A Separation Logic Inductive Prover Which Can Learn from the Failures.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+
+          <h1 id="project_title">The FLP Prover</h1>
+          <h2 id="project_tagline">A Separation Logic Inductive Prover Which Can Learn from the Failures.</h2>
+
+          
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1 id="introduction">Introduction</h1>
+
+<p>FLP is an inductive theorem prover for separation logic entailments. It
+utilizes a structural induction proof system to reason about the
+recursive structures of induction heap predicats. Moroever, it also has
+an ability to learn from the failures of the unsuccessful proof attempts
+and repair them by generalizing, weakening or performing case analysis
+on corresponding entailments</p>
+
+<h1 id="why-needs-to-learn-from-failure">Why needs to learn from failure?</h1>
+
+<p>When proving separation logic entailments by induction, an induction
+hypothesis may contain specific constants, varibles, or pure constraints
+which prevent it from being applied to prove other goal entailments.
+This induction hypothesis is said to be unproductive.</p>
+
+<p>Standard induction-based provers often set an unproductive induction
+hypothesis aside and try out other induction hypotheses. However, these
+provers may fail to prove a goal entailment if they cannot apply any
+induction hypotheses. Here, a possible solution is to anlayze and learn
+from the failure of the induction hypothesis application to repair the
+unsuccessful proof.</p>
+
+<h1 id="how-to-learn-from-failure">How to learn from failure?</h1>
+
+<p>FLP first identifies the main reason why an induction proof fails. It
+identifies constants or varibles in the heap part of an induction
+hypothesis’s antecedent, which cannot be matched with the corresponding
+expressions in the goal entailment, or determines pure formulas in the
+pure part of an induction hypothesis, which cannot be proved by the goal
+entailment’s antecedent.</p>
+
+<p>These constants, varibles, pure formulas are said to be unmatchable.
+Afterward, FLP can perform one of the three steps:</p>
+
+<ul>
+  <li>
+    <p>Generalize the unmatchable constants or variables in the unproductive
+induction hypotheses to obtain more potential induction hypotheses.</p>
+  </li>
+  <li>
+    <p>Weaken the unmatchable pure formulas in the unproductive induction
+hypotheses to obtain more potential induction hypotheses.</p>
+  </li>
+  <li>
+    <p>Perform case analysis on a pure formula of the current entailment,
+which corresponding to the matchable pure formula of the unproductive
+induction hypothesis to derivew new entailments which can be proved by
+the current induction hypothesis.</p>
+  </li>
+</ul>
+
+<h1 id="how-good-flp-is">How good FLP is?</h1>
+
+<p>We first experimented FLP on proving valid entailments and unsatisfiable
+formulas of the separation logic competition SL-COMP 2019. <strong>FLP can prove
+97.5% of the entailment benchmark and 91.2% of the formula benchmark</strong>.
+These results are slightly behind the prover S2S, which can prove 100%
+these two benchmarks. The better performance of S2S is due to its
+ability to compute decidable first-order formulas to under-approximate
+and over-approximate heap predicates in these entailments/formulas.</p>
+
+<p>In contrast, our prover FLP was not equipped with the approximation
+technique, hence, it is less efficient than S2S in this particular
+benchmark. Instead, we developed FLP using induction proof, and our
+prover <strong>FLP outperforms other induction based provers Songbird and
+FLP</strong>. These two provers can respectively prove only 91.7% and 30.0% of
+the entailment benchmark and 75.8% and 78.0% of the formula benchmark.
+The detailed results is presented in the below table.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Entailment</th>
+      <th>#</th>
+      <th>Spen</th>
+      <th>Harrsh</th>
+      <th>Slide</th>
+      <th>Cyclist</th>
+      <th>S2S</th>
+      <th>Songbird</th>
+      <th>FLP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SLL</td>
+      <td>392</td>
+      <td>175</td>
+      <td>251</td>
+      <td>27</td>
+      <td>205</td>
+      <td>392</td>
+      <td>392</td>
+      <td>392</td>
+    </tr>
+    <tr>
+      <td>NLL</td>
+      <td>22</td>
+      <td>22</td>
+      <td>11</td>
+      <td>0</td>
+      <td>14</td>
+      <td>22</td>
+      <td>22</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>SKL</td>
+      <td>26</td>
+      <td>26</td>
+      <td>4</td>
+      <td>0</td>
+      <td>10</td>
+      <td>26</td>
+      <td>20</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <td>DLL</td>
+      <td>77</td>
+      <td>10</td>
+      <td>54</td>
+      <td>39</td>
+      <td>46</td>
+      <td>77</td>
+      <td>73</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <td>TREE</td>
+      <td>43</td>
+      <td>0</td>
+      <td>24</td>
+      <td>15</td>
+      <td>24</td>
+      <td>43</td>
+      <td>36</td>
+      <td>41</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>SLL (arith)</td>
+      <td>78</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>78</td>
+      <td>65</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <td>SLS (arith)</td>
+      <td>25</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>25</td>
+      <td>15</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <td>DLL (arith)</td>
+      <td>116</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>116</td>
+      <td>100</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <td>TREE (arith)</td>
+      <td>12</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>12</td>
+      <td>2</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>Total</td>
+      <td>791</td>
+      <td>233</td>
+      <td>344</td>
+      <td>81</td>
+      <td>299</td>
+      <td>791</td>
+      <td>725</td>
+      <td>771</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>Formula</th>
+      <th>#</th>
+      <th>Spen</th>
+      <th>Harrsh</th>
+      <th>Cyclist</th>
+      <th>CyclistSat</th>
+      <th>S2S</th>
+      <th>Songbird</th>
+      <th>FLP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SLL</td>
+      <td>63</td>
+      <td>55</td>
+      <td>63</td>
+      <td>43</td>
+      <td>61</td>
+      <td>63</td>
+      <td>58</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <td>DLL</td>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>4</td>
+      <td>4</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>TREE</td>
+      <td>6</td>
+      <td>0</td>
+      <td>6</td>
+      <td>4</td>
+      <td>6</td>
+      <td>6</td>
+      <td>4</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>SLS (arith)</td>
+      <td>11</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>11</td>
+      <td>6</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>DLL (arith)</td>
+      <td>6</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>6</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>TREE (arith)</td>
+      <td>1</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>x</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>Total</td>
+      <td>91</td>
+      <td>55</td>
+      <td>73</td>
+      <td>47</td>
+      <td>71</td>
+      <td>91</td>
+      <td>69</td>
+      <td>83</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We also experimented FLP with valid entailments collected from the
+verification of programs. In particular, we collect the entailments
+generated by an existing verifier Hip/Sleek (it might return the answer
+<em>unknown</em>). Then, we manually inspect to select only valid entailments.
+These entailments contain not only complicated data structures but also
+additional pure constraints over temporary variables. These temporary
+variables are introduced by the verification system Hip/Sleek when it
+transform input programs into the static single assignment form (SSA).
+Hence, most of them cannot be prove by existing provers like S2S and
+Songbird.</p>
+
+<p>In contrast, our prover <strong>FLP can easily apply the weakening rule</strong> to
+remove all these additional pure constraint. Hence, <strong>it can efficiently
+prove 100% of these entailments</strong> in averagely 0.47 seconds per
+entailment. The details of this experiment is shown in the below table.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Entailment</th>
+      <th>#</th>
+      <th>S2S</th>
+      <th>Songbird</th>
+      <th>FLP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SLL (size)</td>
+      <td>35</td>
+      <td>25</td>
+      <td>4</td>
+      <td>35</td>
+    </tr>
+    <tr>
+      <td>DLL (size)</td>
+      <td>48</td>
+      <td>34</td>
+      <td>28</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <td>TREE (size)</td>
+      <td>24</td>
+      <td>x</td>
+      <td>18</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>SLL (arith)</td>
+      <td>31</td>
+      <td>18</td>
+      <td>8</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>DLL (arith)</td>
+      <td>28</td>
+      <td>18</td>
+      <td>18</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <td>TREE (arith)</td>
+      <td>26</td>
+      <td>x</td>
+      <td>18</td>
+      <td>26</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td>Total</td>
+      <td>192</td>
+      <td>95</td>
+      <td>94</td>
+      <td>192</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="download">Download</h1>
+
+<ul>
+  <li>
+    <p>Our prover FLP and the experimented entaiment benchmarks can be
+downloaded here: <a href="https://www.dropbox.com/prover-benchmarks.zip">FLP and its
+benchmarks</a></p>
+  </li>
+  <li>
+    <p>The details of our experiment are reported in this PDF file:
+<a href="https://www.dropbox.com/SAS19-experiment.pdf">experiment details</a></p>
+  </li>
+</ul>
+
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>
