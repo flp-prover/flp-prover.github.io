@@ -131,9 +131,8 @@ entailment. The details of this experiment is shown in the below table.
 
 # Download
 
-- Our prover FLP and the experimented entaiment benchmarks can be
-  downloaded here: [FLP and its
-  benchmarks](https://www.dropbox.com/prover-benchmarks.zip)
+- Our prover FLP and the its experimented benchmarks can be
+  downloaded here: [FLP-prover](https://www.dropbox.com/s/52qocwwc8ratb5w/flp-prover.zip)
 
 - The details of our experiment are reported in this PDF file:
-  [experiment details](https://www.dropbox.com/s/s55r88ub7gsgeqx/SAS-19-Experiment.pdf)
+  [SAS-19 Experiment](https://www.dropbox.com/s/s55r88ub7gsgeqx/SAS-19-Experiment.pdf)
